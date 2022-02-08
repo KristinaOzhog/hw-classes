@@ -83,8 +83,46 @@ class Reviewer(Mentor):
               f'Фамилия: {self.surname}'
         return res
 
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
+# best_student = Student('Ruoy', 'Eman', 'your_gender')
+# best_student.courses_in_progress += ['Python']
+#
+# cool_mentor = Mentor('Some', 'Buddy')
+# cool_mentor.courses_attached += ['Python']
 
-cool_mentor = Mentor('Some', 'Buddy')
-cool_mentor.courses_attached += ['Python']
+
+first_lecturer = Lecturer('Николай', 'Прокофьев')
+first_lecturer.courses_attached.append('Python')
+
+second_lecturer = Lecturer('Юлия', 'Царева')
+second_lecturer.courses_attached.append('Java')
+
+first_student = Student('Алексей', 'Федотов', 'м')
+first_student.finished_courses.append('Git')
+first_student.courses_in_progress.append('Python')
+first_student.courses_in_progress.append('Java')
+first_student.rate_lr(first_lecturer, 'Python', 10)
+first_student.rate_lr(second_lecturer, 'Java', 6)
+
+second_student = Student('Михаил', 'Павлов', 'м')
+second_student.finished_courses.append('Java')
+second_student.courses_in_progress.append('Git')
+second_student.courses_in_progress.append('Python')
+second_student.rate_lr(first_lecturer, 'Python', 8)
+second_student.rate_lr(second_lecturer, 'Java', 10)
+
+first_reviewer = Reviewer('Анна', 'Полякова')
+first_reviewer.courses_attached.append('Python')
+first_reviewer.rate_hw(first_student, 'Python', 10)
+first_reviewer.rate_hw(second_student, 'Python', 9)
+
+second_reviewer = Reviewer('Олег', 'Михайлов')
+second_reviewer.courses_attached.append('Git')
+second_reviewer.courses_attached.append('Java')
+second_reviewer.rate_hw(first_student, 'Git', 8)
+second_reviewer.rate_hw(first_student, 'Java', 9)
+second_reviewer.rate_hw(second_student, 'Git', 10)
+second_reviewer.rate_hw(second_student, 'Java', 8)
+
+
+
+print(second_lecturer)
