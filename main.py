@@ -20,23 +20,26 @@ class Student:
         else:
             return 'Ошибка'
 
-    def __average_hw_grade(self):
-        ahwg = sum(self.grades) / len(self.grades)
+    def average_hw_grade(self):
+        sg = sum(list(self.grades.values()), [])
+        ahwg = round(sum(sg) / len(sg), 1)
         return ahwg
 
     def __str__(self):
-        res = f'Имя: {self.name}\n'\
-              f'Фамилия: {self.surname}\n'\
-              f'Средняя оценка за домашнее задание: {self.__average_hw_grade}\n'\
-              f'Курсы в процессе изуения: {self.courses_in_progress}\n'\
-              f'Завершенные курсы: {self.finished_courses}'
+        str1 = ", ".join(self.courses_in_progress)
+        str2 = ", ".join(self.finished_courses)
+        res = f'Имя: {self.name}\n' \
+              f'Фамилия: {self.surname}\n' \
+              f'Средняя оценка за домашнее задание: {self.average_hw_grade()}\n' \
+              f'Курсы в процессе изуения: {str1}\n' \
+              f'Завершенные курсы: {str2}'
         return res
 
     def __lt__(self, other):
         if not isinstance(other, Student):
             print('Not a Student.')
             return
-        return self.__average_hw_grade < other.__average_hw_grade
+        return self.average_hw_grade() < other.average_hw_grade()
 
 
 class Mentor:
@@ -51,26 +54,28 @@ class Lecturer(Mentor):
         super().__init__(name, surname)
         self.grades = {}
 
-
-    def __average_lecture_grade(self):
-        alg = sum(self.grades) / len(self.grades)
+    def average_lecture_grade(self):
+        sl = sum(list(self.grades.values()), [])
+        alg = round(sum(sl) / len(sl), 1)
         return alg
 
     def __str__(self):
-        res = f'Имя: {self.name}\n'\
-              f'Фамилия: {self.surname}\n'\
-              f'Средняя оценка за лекции: {self.__average_lecture_grade}'
+        res = f'Имя: {self.name}\n' \
+              f'Фамилия: {self.surname}\n' \
+              f'Средняя оценка за лекции: {self.average_lecture_grade()}'
         return res
 
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
             print('Not a Lecturer.')
             return
-        return self.__average_lecture_grade < other.__average_lecture_grade
+        return self.average_lecture_grade() < other.average_lecture_grade()
+
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+        if isinstance(student, Student) and course in self.courses_attached and course in \
+                student.courses_in_progress:
             if course in student.grades:
                 student.grades[course] += [grade]
             else:
@@ -79,15 +84,9 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
     def __str__(self):
-        res = f'Имя: {self.name}\n'\
+        res = f'Имя: {self.name}\n' \
               f'Фамилия: {self.surname}'
         return res
-
-# best_student = Student('Ruoy', 'Eman', 'your_gender')
-# best_student.courses_in_progress += ['Python']
-#
-# cool_mentor = Mentor('Some', 'Buddy')
-# cool_mentor.courses_attached += ['Python']
 
 
 first_lecturer = Lecturer('Николай', 'Прокофьев')
@@ -100,8 +99,8 @@ first_student = Student('Алексей', 'Федотов', 'м')
 first_student.finished_courses.append('Git')
 first_student.courses_in_progress.append('Python')
 first_student.courses_in_progress.append('Java')
-first_student.rate_lr(first_lecturer, 'Python', 10)
-first_student.rate_lr(second_lecturer, 'Java', 6)
+first_student.rate_lr(first_lecturer, 'Python', 9)
+first_student.rate_lr(second_lecturer, 'Java', 10)
 
 second_student = Student('Михаил', 'Павлов', 'м')
 second_student.finished_courses.append('Java')
@@ -118,11 +117,23 @@ first_reviewer.rate_hw(second_student, 'Python', 9)
 second_reviewer = Reviewer('Олег', 'Михайлов')
 second_reviewer.courses_attached.append('Git')
 second_reviewer.courses_attached.append('Java')
-second_reviewer.rate_hw(first_student, 'Git', 8)
-second_reviewer.rate_hw(first_student, 'Java', 9)
+second_reviewer.rate_hw(first_student, 'Java', 8)
+second_reviewer.rate_hw(first_student, 'Java', 10)
 second_reviewer.rate_hw(second_student, 'Git', 10)
-second_reviewer.rate_hw(second_student, 'Java', 8)
+second_reviewer.rate_hw(second_student, 'Git', 10)
 
+print(first_student)
+print(second_student)
+print(first_student > second_student)
+print(first_student < second_student)
 
+print(first_reviewer)
+print(second_reviewer)
 
+print(first_lecturer)
 print(second_lecturer)
+print(first_lecturer > second_lecturer)
+print(first_lecturer < second_lecturer)
+
+
+# def av_students_grades(students, courses):
