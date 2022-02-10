@@ -135,5 +135,31 @@ print(second_lecturer)
 print(first_lecturer > second_lecturer)
 print(first_lecturer < second_lecturer)
 
+student_list = [first_student, second_student]
+lecturer_list = [first_lecturer, second_lecturer]
 
-# def av_students_grades(students, courses):
+
+def av_students_grades(students, courses):
+    for student in students:
+        if courses in student.grades.keys():
+            sg = sum(list(student.grades.values()), [])
+            ahwg = round(sum(sg) / len(sg), 1)
+            return ahwg
+    else:
+        print('Студент не изучает данный курс.')
+
+
+def av_lecturer_grades(lecturers, courses):
+    for lecturer in lecturers:
+        if courses in lecturer.grades.keys():
+            sl = sum(list(lecturer.grades.values()), [])
+            alg = round(sum(sl) / len(sl), 1)
+            return alg
+    else:
+        print('Лектор не преподает данный курс.')
+
+
+print(f'Средняя оценка студентов за курс GIT: {av_students_grades(student_list, "Git")}')
+print(f'Средняя оценка студентов за курс Python: {av_students_grades(student_list, "Python")}')
+print(f'Средняя оценка лекторов за курс Python: {av_lecturer_grades(lecturer_list, "Python")}')
+print(f'Средняя оценка лекторов за курс GIT: {av_lecturer_grades(lecturer_list, "Java")}')
