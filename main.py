@@ -102,7 +102,7 @@ first_student.courses_in_progress.append('Java')
 first_student.rate_lr(first_lecturer, 'Python', 9)
 first_student.rate_lr(second_lecturer, 'Java', 10)
 
-second_student = Student('Михаил', 'Павлов', 'м')
+second_student = Student('Инна', 'Аристархова', 'ж')
 second_student.finished_courses.append('Java')
 second_student.courses_in_progress.append('Git')
 second_student.courses_in_progress.append('Python')
